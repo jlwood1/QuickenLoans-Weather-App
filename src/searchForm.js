@@ -14,12 +14,17 @@ let SearchForm = () => {
 
     let setWeatherData = (data) => {
         data.then((result) => {
-            updateWeatherData(result)
-            let location = {}
-            console.log(result.coord.lon)
-            location.longitude = result.coord.lon 
-            location.latitude = result.coord.lat 
-            setLocation(location)
+            console.log(result)
+            if(!result.statusCode) {
+                updateWeatherData(result)
+                let location = {}
+                console.log(result.coord.lon)
+                location.longitude = result.coord.lon 
+                location.latitude = result.coord.lat 
+                setLocation(location)
+            } else {
+                onError(true)
+            }
         })
     }
 
@@ -54,6 +59,8 @@ let SearchForm = () => {
                     else {
                         let currentWeatherData = getWeatherInformation(searchData)
                         setWeatherData(currentWeatherData) 
+                        if(forecastData)
+                            setForecastData(null)
                         
                     }                     
                 }}> Search </div>
@@ -80,6 +87,8 @@ let SearchForm = () => {
                     showFiveDayForecast && forecastData ?
                         <FiveDayForecast
                             forecastData = {forecastData}
+                            city = {weatherData.name}
+                            country = {weatherData.sys.country}
                         />
                     : ''
                 }

@@ -2,9 +2,10 @@ import React from 'react'
 
 let GetFiveDayForecast = (props) => {
     let dayCount = 1 
+    console.log(props.forecastData)
     return (
         <div className = 'forecast-wrapper'>   
-            <span className = 'forecast-header'> Showing Five Day Forecast For:  {props.forecastData.timezone} </span>
+            <span className = 'forecast-header'> Showing Five Day Forecast For:  {props.city} / {props.country} </span>
             <div>
                 {
                     props.forecastData.daily.map((val) => (
